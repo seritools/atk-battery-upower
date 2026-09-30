@@ -1,0 +1,20 @@
+# Installation steps:
+#
+# cargo install --path . --bin atk-battery-upower -Zbuild-std=std,panic_abort -Zbuild-std-features=optimize_for_size
+# cp contrib/atk-battery-upower.service ~/.config/systemd/user/
+# systemctl --user enable --now atk-battery-upower
+#
+# Needs udev rules for hidraw and usermode HID devices, see the two .rules file.
+
+[Unit]
+Description=Expose ATK mouse battery to UPower
+
+[Service]
+ExecStart=%h/.cargo/bin/atk-battery-upower
+Restart=on-failure
+RestartSec=5
+# lets the kernel batch the periodic wakeups with others
+TimerSlackNSec=100ms
+
+[Install]
+WantedBy=default.target

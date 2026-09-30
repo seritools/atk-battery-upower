@@ -1,0 +1,16 @@
+[package]
+name = "atk-battery"
+version = "0.1.0"
+edition = "2024"
+default-run = "atk-battery"
+
+[dependencies]
+heapless = "0.9.3"
+hidapi = "2.6.7"
+libc = "0.2.189"
+udev = "0.9.3"
+
+[profile.release]
+lto = true
+codegen-units = 1
+debug = 0
